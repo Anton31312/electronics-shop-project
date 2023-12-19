@@ -10,3 +10,9 @@ def test_apply_discount():
     ITEM_PROD.pay_rate = 0.85
     ITEM_PROD.apply_discount()
     assert ITEM_PROD.price == 1700
+
+def test_instantiate_from_csv():
+    assert ITEM_PROD.instantiate_from_csv() == True
+
+def test_string_to_number():
+    assert ITEM_PROD.string_to_number(1) == 1
