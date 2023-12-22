@@ -16,3 +16,9 @@ def test_instantiate_from_csv():
 
 def test_string_to_number():
     assert ITEM_PROD.string_to_number(1) == 1
+
+def test__repr__():
+    assert ITEM_PROD == "Item('Красная панама', 2000, 3)"
+
+def test__str__():
+    assert ITEM_PROD == 'Красная панама'
