@@ -54,14 +54,13 @@ class Item:
                 cls.all.append(item)
 
     @staticmethod
-    def string_to_number(str_num) -> int:
+    def string_to_number(str_num: str) -> int:
         '''
         Статический метод. 
 
         :return: Число из числа-строки.
         '''
-        if int(float(str_num)) == len(Item.all):
-            return int(float(str_num))
+        return int(float(str_num))
 
     def calculate_total_price(self) -> float:
         """
