@@ -29,6 +29,11 @@ class Item:
     def __str__(self) -> str:
         return self.name
 
+    def __add__(self, other):
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        raise Exception  
+
     @property
     def name(self):
         return self._name
