@@ -1,5 +1,5 @@
 from csv import DictReader
-
+from src.csv_error import InstantiateCSVError
 
 class Item:
     """
@@ -51,12 +51,21 @@ class Item:
         Класс-метод, инициализирующий экземпляры класса `Item` 
         данными из файла _src/items.csv_
         '''
-        with open(path, newline='') as csvfile:
-            cls.all.clear()
-            reader = DictReader(csvfile)
-            for row in reader:
-                item = row
-                cls.all.append(item)
+        try:
+            with open(path, newline='') as csvfile:
+                cls.all.clear()
+                reader = DictReader(csvfile)
+                for row in reader:
+                    __name = row['name']
+                    price = row['price']
+                    quantity = row['quantity']
+                    item = cls(__name, price, quantity)
+                    cls.all.append(item)
+        except KeyError:
+            raise InstantiateCSVError("Файл поврежден")              
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Отсутствует файл -> {path}")
+          
 
     @staticmethod
     def string_to_number(str_num: str) -> int:
