@@ -18,14 +18,14 @@ def test_string_to_number():
     assert ITEM_PROD.string_to_number('1') == 1
 
 def test_name():
-    assert ITEM_PROD.name == 'Красная па'
+    assert ITEM_PROD.name == 'Красная панама'
     assert ITEM_PROD_SEC.name == 'Папка'
 
 def test__repr__():
-    assert ITEM_PROD == "Item('Красная панама', 2000, 3)"
+    assert repr(ITEM_PROD) == "Item('Красная панама', 2000, 3)"
 
 def test__str__():
-    assert ITEM_PROD == 'Красная панама'
+    assert str(ITEM_PROD) == 'Красная панама'
 
 def test__add__():
     assert ITEM_PROD.quantity + PHONE_PROD.quantity
