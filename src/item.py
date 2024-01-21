@@ -56,15 +56,18 @@ class Item:
                 cls.all.clear()
                 reader = DictReader(csvfile)
                 for row in reader:
-                    __name = row['name']
-                    price = row['price']
-                    quantity = row['quantity']
-                    item = cls(__name, price, quantity)
-                    cls.all.append(item)
-        except KeyError:
-            raise InstantiateCSVError("Файл поврежден")              
+                    if len(row) == 3:
+                        __name = row['name']
+                        price = row['price']
+                        quantity = row['quantity']
+                        item = cls(__name, price, quantity)
+                        cls.all.append(item)
+                    else:
+                        raise(InstantiateCSVError("Файл поврежден"))    
+        except InstantiateCSVError:
+            return print(f"Файл поврежден -> {path}")              
         except FileNotFoundError:
-            raise FileNotFoundError(f"Отсутствует файл -> {path}")
+            return print(f"Отсутствует файл -> {path}")
           
 
     @staticmethod
