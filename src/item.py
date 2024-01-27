@@ -1,4 +1,6 @@
 from csv import DictReader
+import os
+
 from src.csv_error import InstantiateCSVError
 
 class Item:
@@ -51,23 +53,22 @@ class Item:
         Класс-метод, инициализирующий экземпляры класса `Item` 
         данными из файла _src/items.csv_
         '''
-        try:
-            with open(path, newline='') as csvfile:
-                cls.all.clear()
-                reader = DictReader(csvfile)
-                for row in reader:
-                    if len(row) == 3:
-                        __name = row['name']
-                        price = row['price']
-                        quantity = row['quantity']
-                        item = cls(__name, price, quantity)
-                        cls.all.append(item)
-                    else:
-                        raise(InstantiateCSVError("Файл поврежден"))    
-        except InstantiateCSVError:
-            return print(f"Файл поврежден -> {path}")              
-        except FileNotFoundError:
-            return print(f"Отсутствует файл -> {path}")
+        if not os.path.exists(path):
+            raise FileNotFoundError
+        
+        with open(path, newline='') as csvfile:
+            cls.all.clear()
+            reader = DictReader(csvfile)
+            for row in reader:
+                if len(row) == 3:
+                    __name = row['name']
+                    price = row['price']
+                    quantity = row['quantity']
+                    item = cls(__name, price, quantity)
+                    cls.all.append(item)
+                else:
+                    raise(InstantiateCSVError("Файл поврежден"))    
+        
           
 
     @staticmethod
